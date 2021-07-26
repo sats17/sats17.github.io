@@ -5,14 +5,10 @@
  */
 
 var darkSwitch = document.getElementById("darkSwitch");
-console.log(darkSwitch)
-console.log("Dark swihc true")
 window.addEventListener("load", function () {
   if (darkSwitch) {
-    console.log("Dark swihc true");
     initTheme();
     darkSwitch.addEventListener("change", function () {
-      
       resetTheme();
     });
   }
@@ -30,13 +26,17 @@ window.addEventListener("load", function () {
  * @return {void}
  */
 function initTheme() {
-  var darkThemeSelected =
-    localStorage.getItem("isDarkSwitch") !== null &&
-    localStorage.getItem("isDarkSwitch") === "no";
-  darkSwitch.checked = darkThemeSelected;
-  darkThemeSelected
-    ? document.body.setAttribute("data-theme", "dark")
-    : document.body.removeAttribute("data-theme");
+    //By default setting as dark
+    var darkThemeSelected = localStorage.getItem("isDarkSwitch") === "no";
+    if(!darkThemeSelected) {
+        document.body.setAttribute("data-theme", "dark")
+        darkSwitch.checked = true;
+    } else {
+        document.body.removeAttribute("data-theme");
+        darkSwitch.checked = false;
+    }
+    
+    // : 
 }
 
 /**
