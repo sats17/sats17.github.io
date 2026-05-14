@@ -1,18 +1,15 @@
 ---
-title: "Hello World"
-description: "My first blog post"
-pubDate: "2026-05-14"
+title: "Spring boot OOMKilled Error"
+description: "Resolving Kubernetes Pod OOMKilled Errors in Java Spring Boot Applications: Conquering Out of Memory Issues with Configurations"
+pubDate: "2023-05-21"
 ---
 
-# Resolving Kubernetes Pod OOMKilled Errors for Java Spring Boot Applications
-
-Conquering Out of Memory Issues with Configurations
+# Resolving Kubernetes Pod OOMKilled Errors in Java Spring Boot Applications
 
 We encountered an issue with our Java Spring boot application where the Kubernetes pods were getting killed or restarted with an OOMKilled error and an Exit Code of 137.
 
-![Kubernetes Pod Memory Issue](/sats17.blogs/images/blog_first.png)
 
-## Reason for pod being killed
+*Reason for pod being killed.*
 
 ---
 
@@ -22,7 +19,7 @@ When a container is OOMKilled, it means that it has consumed more memory than it
 
 ---
 
-## Initial Configuration
+## Our Initial Configuration
 
 So, I will walk through the configurations we had when we faced this issue.
 

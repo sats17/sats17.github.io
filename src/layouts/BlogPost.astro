@@ -1,17 +1,61 @@
-     ---
-     export const prerender = true;
-     const { title, pubDate, description } = Astro.props;
-     ---
-     <html>
-       <head>
-         <title>{title}</title>
-       </head>
-       <body>
-         <article>
-           <h1>{title}</h1>
-           <p><small>{pubDate}</small></p>
-           <p>{description}</p>
-           <slot />
-         </article>
-       </body>
-     </html>
+---
+import '../styles/global.css';
+
+const { title, pubDate, description } = Astro.props;
+---
+
+<style is:global>
+  body {
+    background-color: #f5f1e8;
+    text-align: center;
+  }
+
+  article {
+    text-align: left;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-top: 30px;
+    margin-bottom: 20px;
+  }
+
+  .name {
+    text-align: center;
+  }
+
+  .back-link {
+    text-align: center;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    margin: 30px auto;
+    display: block;
+  }
+
+  em {
+    display: block;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 10px;
+  }
+</style>
+
+<div class="name">Satish Kumbhar</div>
+
+<div class="back-link">
+  <a href="/sats17.blogs/">← Back to Blogs</a>
+</div>
+
+<article>
+  <h1>{title}</h1>
+  <p><small>{pubDate}</small></p>
+  <p><strong>{description}</strong></p>
+  <slot />
+</article>
