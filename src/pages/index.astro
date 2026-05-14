@@ -1,0 +1,30 @@
+---
+const posts = await Promise.all(
+  Object.entries(import.meta.glob('./**/*.md', { eager: true })).map(async ([path, post]) => {
+    const slug = path.split('/').pop()?.replace('.md', '');
+    return {
+      slug,
+      ...post.frontmatter,
+    };
+  })
+);
+
+posts.sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime());
+---
+<html>
+  <head>
+    <title>My Blog</title>
+  </head>
+  <body>
+    <h1>Welcome to My Blog</h1>
+    <ul>
+      {posts.map((post) => (
+        <li>
+          <a href={`/sats17.blogs/blog/${post.slug}`}>{post.title}</a>
+          <p>{post.description}</p>
+          <small>{post.pubDate}</small>
+        </li>
+      ))}
+    </ul>
+  </body>
+</html>
