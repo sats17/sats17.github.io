@@ -1,61 +1,80 @@
 ---
-import '../styles/global.css';
+import { type CollectionEntry, render } from "astro:content";
 
-const { title, pubDate, description } = Astro.props;
+import Masthead from "@/components/blog/Masthead.astro";
+import TOC from "@/components/blog/TOC.astro";
+import WebMentions from "@/components/blog/webmentions/index.astro";
+
+import BaseLayout from "./Base.astro";
+
+interface Props {
+	post: CollectionEntry<"post">;
+}
+
+const { post } = Astro.props;
+const { ogImage, title, description, updatedDate, publishDate } = post.data;
+const socialImage = ogImage ?? `/og-image/${post.id}.png`;
+const articleDate = updatedDate?.toISOString() ?? publishDate.toISOString();
+const { headings, remarkPluginFrontmatter } = await render(post);
+const readingTime: string = remarkPluginFrontmatter.readingTime;
 ---
 
-<style is:global>
-  body {
-    background-color: #f5f1e8;
-    text-align: center;
-  }
+<BaseLayout
+	meta={{
+		articleDate,
+		description,
+		ogImage: socialImage,
+		title,
+	}}
+>
+	<article class="grow break-words" data-pagefind-body>
+		<div id="blog-hero" class="mb-12"><Masthead content={post} readingTime={readingTime} /></div>
+		<div class="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
+			{!!headings.length && <TOC headings={headings} />}
+			<div
+				class="prose prose-sm prose-headings:font-semibold prose-headings:text-accent-2 prose-headings:before:absolute prose-headings:before:-ms-4 prose-headings:before:text-muted prose-headings:hover:before:text-accent sm:prose-headings:before:content-['#'] sm:prose-th:before:content-none"
+			>
+				<slot />
+				<WebMentions />
+			</div>
+		</div>
+	</article>
+	<button
+		class="hover:border-link fixed end-4 bottom-8 z-90 flex h-10 w-10 translate-y-28 cursor-pointer items-center justify-center rounded-full border-2 border-transparent bg-zinc-200 text-3xl opacity-0 transition-all transition-discrete duration-300 data-[show=true]:translate-y-0 data-[show=true]:opacity-100 sm:end-8 sm:h-12 sm:w-12 dark:bg-zinc-700"
+		data-show="false"
+		id="to-top-btn"
+	>
+		<span class="sr-only">Back to top</span>
+		<svg
+			aria-hidden="true"
+			class="h-6 w-6"
+			fill="none"
+			focusable="false"
+			stroke="currentColor"
+			stroke-width="2"
+			viewBox="0 0 24 24"
+			xmlns="http://www.w3.org/2000/svg"
+		>
+			<path d="M4.5 15.75l7.5-7.5 7.5 7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+		</svg>
+	</button>
+</BaseLayout>
 
-  article {
-    text-align: left;
-    max-width: 800px;
-    margin: 0 auto;
-  }
+<script>
+	const scrollBtn = document.getElementById("to-top-btn") as HTMLButtonElement;
+	const targetHeader = document.getElementById("blog-hero") as HTMLDivElement;
 
-  h1 {
-    text-align: center;
-    font-size: 2.2rem;
-    margin-top: 30px;
-    margin-bottom: 20px;
-  }
+	function callback(entries: IntersectionObserverEntry[]) {
+		entries.forEach((entry) => {
+			// only show the scroll to top button when the heading is out of view
+			scrollBtn.dataset.show = (!entry.isIntersecting).toString();
+		});
+	}
 
-  .name {
-    text-align: center;
-  }
+	scrollBtn.addEventListener("click", () => {
+		document.documentElement.scrollTo({ behavior: "smooth", top: 0 });
+	});
 
-  .back-link {
-    text-align: center;
-  }
-
-  img {
-    max-width: 100%;
-    height: auto;
-    margin: 30px auto;
-    display: block;
-  }
-
-  em {
-    display: block;
-    text-align: center;
-    font-size: 0.9rem;
-    color: #666;
-    margin-top: 10px;
-  }
-</style>
-
-<div class="name">Satish Kumbhar</div>
-
-<div class="back-link">
-  <a href="/sats17.blogs/">← Back to Blogs</a>
-</div>
-
-<article>
-  <h1>{title}</h1>
-  <p><small>{pubDate}</small></p>
-  <p><strong>{description}</strong></p>
-  <slot />
-</article>
+	const observer = new IntersectionObserver(callback);
+	observer.observe(targetHeader);
+</script>
