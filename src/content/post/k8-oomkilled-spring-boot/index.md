@@ -16,7 +16,12 @@ We encountered an issue with our Java Spring boot application where the kuberene
 <hr />
 
 Now, first let’s talk about what is OOMKilled(Exit Code: 137)
-> <span style="color: black;">When a container is OOMKilled, it means that it has consumed more memory than its specified memory limit, causing a severe resource constraint. The Kubernetes control plane or container runtime, such as Docker, recognizes this condition and forcefully terminates the container to prevent it from consuming excessive resources and potentially impacting other containers or the overall system stability.</span>
+<div class="note-text">
+When a container is OOMKilled, it means that it has consumed more memory than its specified memory limit,
+causing a severe resource constraint. The Kubernetes control plane or container runtime, such as Docker,
+recognizes this condition and forcefully terminates the container to prevent it from consuming excessive
+resources and potentially impacting other containers or the overall system stability.
+</div>
 
 <hr />
 

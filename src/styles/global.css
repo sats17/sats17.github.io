@@ -134,3 +134,11 @@
 	--tw-prose-quotes: var(--color-quote);
 	--tw-prose-th-borders: #666;
 }
+
+.note-text {
+  padding: 12px 16px;
+  border-radius: 6px;
+
+  background: rgba(125, 211, 252, 0.25); /* soft blue background */
+  color: inherit; /* keeps normal readable text color */
+}
