@@ -1,10 +1,9 @@
 ---
-title: "Example Cover Image"
-description: "This post is an example of how to add a cover/hero image"
-publishDate: "04 July 2023"
-updatedDate: "14 August 2023"
+title: "Cover Image Example (placeholder)"
+description: "Placeholder demonstrating cover image frontmatter. Replace or delete when adding your own content."
+publishDate: "2024-01-01"
 coverImage:
   src: "./cover.png"
-  alt: "Astro build wallpaper"
-tags: ["test", "image"]
+  alt: "Cover image placeholder"
+tags: ["example", "image"]
 ---

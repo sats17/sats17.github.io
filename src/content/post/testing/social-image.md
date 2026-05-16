@@ -1,8 +1,8 @@
 ---
-title: "Example OG Social Image"
-publishDate: "27 January 2023"
-description: "An example post for Astro Cactus, detailing how to add a custom social image card in the frontmatter"
-tags: ["example", "blog", "image"]
+title: "Example OG Social Image (placeholder)"
+publishDate: "2023-01-27"
+description: "Placeholder example post — you can remove this file and add your own posts in src/content/post/"
+tags: ["example"]
 ogImage: "/social-card.png"
 ---
 
@@ -17,6 +17,6 @@ If you open this markdown file `src/content/post/social-image.md` you'll see the
 ogImage: "/social-card.png"
 ```
 
-You can view the one set for this template page [here](https://astro-cactus.chriswilliams.dev/social-card.png).
+You can view the default social card image in `/public/social-card.png`. Replace this with your own image or specify `ogImage` in a post's frontmatter to use a custom image.
 
 [^1]: The image itself can be located anywhere you like.

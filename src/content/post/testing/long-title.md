@@ -1,8 +1,8 @@
 ---
-title: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Id"
-description: "This post is purely for testing if the css is correct for the title on the page"
-publishDate: "01 Feb 2023"
-tags: ["test"]
+title: "Long Title Example (placeholder)"
+description: "Placeholder post demonstrating long titles — remove when adding your own content."
+publishDate: "2024-02-01"
+tags: ["example"]
 ---
 
 ## Testing the title tag

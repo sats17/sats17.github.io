@@ -116,20 +116,12 @@ This is a note with a custom title.
 
 ## GitHub Repository Cards
 
-You can add dynamic cards that link to GitHub repositories, on page load, the repository information is pulled from the GitHub API.
+You can add dynamic cards that link to GitHub repositories or users. Use the `github` directive with your own repository or username. Example placeholders:
 
-::github{repo="chrismwilliams/astro-theme-cactus"}
+::github{repo="your-username/your-repo"}
 
-You can also link a Github user:
+Or link a GitHub user:
 
-::github{user="withastro"}
+::github{user="your-username"}
 
-To use this feature you just use the "Github" directive:
-
-```markdown title="Linking a repo"
-::github{repo="chrismwilliams/astro-theme-cactus"}
-```
-
-```markdown title="Linking a user"
-::github{user="withastro"}
-```
+Replace `your-username/your-repo` with your own repository.

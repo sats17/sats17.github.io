@@ -6,6 +6,7 @@ import SocialList from "@/components/SocialList.astro";
 import { getAllPosts } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
 import { collectionDateSort } from "@/utils/date";
+const base = import.meta.env.BASE_URL;
 
 // Posts
 const MAX_POSTS = 10;
@@ -33,11 +34,9 @@ const latestNotes = allNotes
 	<section>
 		<h1 class="title mb-12">Hello World!</h1>
 		<p class="mb-4">
-			Hi, I’m a theme for Astro, a simple starter that you can use to create your website or blog.
-			If you want to know more about how you can customise me, add more posts, and make it your own,
-			click on the GitHub icon link below and it will take you to my repo.
+			Hi, I’m a satish kumbhar. I write about web development, software engineering, and other tech-related topics.
+			I also share my thoughts on life, productivity, and other random things. Check out my latest posts below.
 		</p>
-		<SocialList />
 	</section>
 	{
 		pinnedPosts.length > 0 && (
@@ -54,7 +53,7 @@ const latestNotes = allNotes
 		)
 	}
 	<section class="mt-16">
-		<h2 class="title text-accent mb-6 text-xl"><a href="/posts/">Posts</a></h2>
+		<h2 class="title text-accent mb-6 text-xl"><a href="${base}/posts/">Posts</a></h2>
 		<ul class="space-y-4" role="list">
 			{
 				latestPosts.map((p) => (
@@ -65,7 +64,7 @@ const latestNotes = allNotes
 			}
 		</ul>
 	</section>
-	{
+<!--	{
 		latestNotes.length > 0 && (
 			<section class="mt-16">
 				<h2 class="title text-accent mb-6 text-xl">
@@ -80,5 +79,5 @@ const latestNotes = allNotes
 				</ul>
 			</section>
 		)
-	}
+	} Enable this if you want to add notes -->
 </PageLayout>

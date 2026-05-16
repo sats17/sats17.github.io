@@ -22,7 +22,7 @@ import { expressiveCodeOptions, siteConfig } from "./src/site.config";
 // https://astro.build/config
 export default defineConfig({
 	site: siteConfig.url,
-	base: "/sats17.blogs",
+	base: siteConfig.base,
 	image: {
 		domains: ["webmention.io"],
 	},
@@ -38,7 +38,7 @@ export default defineConfig({
 			short_name: "Astro_Cactus", // optional
 			description: siteConfig.description,
 			lang: siteConfig.lang,
-			icon: "public/icon.svg", // the source for generating favicon & icons
+		//	icon: "public/icon.svg", // the source for generating favicon & icons
 			icons: [
 				{
 					src: "icons/apple-touch-icon.png", // used in src/components/BaseHead.astro L:26
