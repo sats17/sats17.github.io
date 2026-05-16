@@ -3,11 +3,12 @@ import Search from "@/components/Search.astro";
 import ThemeToggle from "@/components/ThemeToggle.astro";
 import { menuLinks } from "@/site.config";
 import { siteConfig } from "../../site.config";
+const base = import.meta.env.BASE_URL;
 ---
 
-<header class="group relative mb-28 flex items-center sm:ps-18" id="main-header">
+<header class="group relative mb-28 flex items-center" id="main-header">
 	<div class="flex sm:flex-col">
-		<a
+		{/* Enable this if logo required <a
 			aria-current={Astro.url.pathname === "/" ? "page" : false}
 			class="inline-flex items-center sm:relative sm:inline-block sm:grayscale sm:hover:filter-none"
 			href="/"
@@ -20,7 +21,7 @@ import { siteConfig } from "../../site.config";
 				viewBox="0 0 272 480"
 				xmlns="http://www.w3.org/2000/svg"
 			>
-				<title>Astro Cactus Logo</title>
+				<title>sats17 Logo</title>
 				<path
 					fill="#cdffb8"
 					d="M181.334 93.333v-40L226.667 80v40zM136.001 53.333 90.667 26.667v426.666L136.001 480zM45.333 220 0 193.334v140L45.333 360z"
@@ -33,7 +34,7 @@ import { siteConfig } from "../../site.config";
 				></path>
 			</svg>
 			<span class="text-xl font-bold sm:text-2xl">{siteConfig.title}</span>
-		</a>
+		</a> */}
 		<nav
 			aria-label="Main menu"
 			class="bg-global-bg absolute -inset-x-4 top-12 hidden flex-col divide-y px-2 py-4 group-[.menu-open]:z-50 group-[.menu-open]:flex sm:static sm:z-auto sm:-ms-4 sm:mt-1 sm:flex sm:flex-row sm:divide-x sm:divide-y-0 sm:bg-transparent sm:p-0"
@@ -44,7 +45,7 @@ import { siteConfig } from "../../site.config";
 					<a
 						aria-current={Astro.url.pathname === link.path ? "page" : false}
 						class="text-accent px-2 py-4 font-semibold sm:px-4 sm:py-0 sm:underline-offset-2 sm:hover:underline"
-						href={link.path}
+						href={`${base}${link.path}`}
 					>
 						{link.title}
 					</a>

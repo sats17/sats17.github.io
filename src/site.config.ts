@@ -11,18 +11,18 @@ export const siteConfig: SiteConfig = {
 		- The link value found in src/components/layout/Header.astro
 		- In the footer found in src/components/layout/Footer.astro
 	*/
-	title: "My Blog",
+	title: "Blogs",
 	// Used as both a meta property & the generated satori png
-	author: "Your Name",
+	author: "Satish Kumbhar",
 	// Used as the default description meta property and webmanifest description
-	description: "My personal blog built with a cleaned Astro Cactus starter",
+	description: "Website contains all blogs written by Satish Kumbhar",
 	// HTML lang property
-	lang: "en-GB",
+	lang: "en-US",
 	// Meta property, found in src/components/BaseHead.astro L:42
-	ogLocale: "en_GB",
+	ogLocale: "en_IN",
 	// Date.prototype.toLocaleDateString() parameters, found in src/utils/date.ts.
 	date: {
-		locale: "en-GB",
+		locale: "en-IN",
 		options: {
 			day: "numeric",
 			month: "short",

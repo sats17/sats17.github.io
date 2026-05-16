@@ -3,6 +3,7 @@ title: "Kubernetes OOMKilled in Spring Boot"
 description: "Resolving Kubernetes Pod OOMKilled Errors for Java Spring Boot Applications: Conquering Out of Memory Issues with Configurations"
 publishDate: "21 Jan 2023"
 updatedDate: "4 July 2023"
+pinned: true
 ---
 <hr />
 

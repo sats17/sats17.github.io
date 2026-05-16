@@ -1,6 +1,7 @@
 ---
 import { getAllPosts, getUniqueTagsWithCount } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
+import base from import.meta.env.BASE_URL;
 
 const allPosts = await getAllPosts();
 const allTags = getUniqueTagsWithCount(allPosts);
@@ -19,7 +20,7 @@ const meta = {
 				<li class="flex items-center gap-x-2">
 					<a
 						class="cactus-link inline-block"
-						href={`/tags/${tag}/`}
+						href={`${base}/tags/${tag}/`}
 						title={`View posts with the tag: ${tag}`}
 					>
 						&#35;{tag}
