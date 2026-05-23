@@ -3,7 +3,6 @@ import type { SiteConfig } from "@/types";
 
 export const siteConfig: SiteConfig = {
 	url: "https://sats17.github.io",
-	base: "/blogs",
 	/*
 		- Used to construct the meta title property found in src/components/BaseHead.astro L:11
 		- Used to construct the meta title property found in src/components/BaseHead.astro

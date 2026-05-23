@@ -3,7 +3,6 @@ import Search from "@/components/Search.astro";
 import ThemeToggle from "@/components/ThemeToggle.astro";
 import { menuLinks } from "@/site.config";
 import { siteConfig } from "../../site.config";
-const base = import.meta.env.BASE_URL;
 ---
 
 <header class="group relative mb-28 flex items-center" id="main-header">
@@ -45,7 +44,7 @@ const base = import.meta.env.BASE_URL;
 					<a
 						aria-current={Astro.url.pathname === link.path ? "page" : false}
 						class="text-accent px-2 py-4 font-semibold sm:px-4 sm:py-0 sm:underline-offset-2 sm:hover:underline"
-						href={`${base}${link.path}`}
+						href={`${link.path}`}
 					>
 						{link.title}
 					</a>
