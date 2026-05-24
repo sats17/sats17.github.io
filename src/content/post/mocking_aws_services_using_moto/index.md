@@ -35,11 +35,11 @@ def lambda_handler(event, context):
     return {"main_character": anime_info["main_character"]["S"]}
 ```
 
-#### Challenges
+## Challenges
 While writing unit-test I faced challenge to provide mocks for this boto3 connections. As this connections gets executed
 at time of initialization of lambda so, I need to have this mocks ready and injected before our lambda file gets executed.
 
-#### Monkey Patching Concept
+## Monkey Patching Concept
 We should write a testable code, by testable code means we should use dependency injections concept in our code. If our code follows DI concept then while writing unit test we can easily provide mock connection objects and it’s mock behavior to our code so it’s easy to write unit test.
 
 But in Python we have a another functionality called monkey patching and many unit-test frameworks of python uses this functionality.
@@ -53,7 +53,7 @@ boto3 = 1.23.3, moto = 3.1.9
 
 <hr />
 
-#### Let’s start to write a unit test for our lambda code
+## Let’s start to write a unit test for our lambda code
 
 1. We will create a class to test our lambda_handler method and this class will inherit the unittest.TestCase class of unittest framework.
 2. We will also inherit the setUp and tearDown methods from unittest testcase, these methods basically invoke before and after each time when our each test case runs.

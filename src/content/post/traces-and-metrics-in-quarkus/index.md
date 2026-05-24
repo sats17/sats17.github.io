@@ -28,7 +28,7 @@ Our setup flow will look like this
 
 <hr />
 
-#### Part 1: Opentelemetry, Elastic APM, Elasticsearch, Kibana setup
+## Part 1: Opentelemetry, Elastic APM, Elasticsearch, Kibana setup
 
 1. Refer below docker compose file, and create docker-compose.yml for setup.
 
@@ -156,7 +156,7 @@ docker-compose up -d
 
 5. You can check that the Kibana server will be running on localhost:5601
 
-#### Part 2: Quarkus application setup
+## Part 2: Quarkus application setup
 
 "For quick start you can clone this repository."
 https://github.com/sats17/java-observability-stack/tree/main/geolocation-service
@@ -180,7 +180,7 @@ quarkus:
 ```
 “For the OpenTelemetry Collector’s host and port, use the Docker container’s host and port. If you’re on the same network, you can also use localhost.”
 
-#### Part 3: Run Quarkus app and monitor metrics and traces.
+## Part 3: Run Quarkus app and monitor metrics and traces.
 1. To run quarkus app use below command in terminal
 ```bash
 mvn quarkus:dev
