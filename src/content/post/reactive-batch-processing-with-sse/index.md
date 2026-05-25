@@ -2,16 +2,16 @@
 title: "Reactive Batch Processing with Server-Sent Events (SSE)"
 description: "This post explains how we used quarkus reactive programming model to implement a batch processing system that streams results to clients using Server-Sent Events (SSE)."
 publishDate: "24 May 2026"
-updatedDate: "24 May 2026"
+updatedDate: "25 May 2026"
 ---
 <hr />
 
 ## Problem statement
 
 Consider a workflow where users upload a CSV containing device identifiers. The backend processes each record through
-an external APi and users need the results before moving to the next step.
+an external API and users need the results before moving to the next step.
 
-A few constraints were already knows:
+A few constraints were already known:
 - Maximum batch size: 100 records
 - External API response times are unpredictable
 - Results are independent
@@ -27,7 +27,7 @@ The main question was not how to process the batch, but how to stream results ba
 3. **Queue based approach with polling** - Discarded due to added complexity for small batch sizes and need for real-time updates
 4. **Server-Sent Events (SSE)** - Chosen for its simplicity, real-time streaming capabilities within single HTTP connection, and good browser support
 
-## Why SSE fits this workflow:
+## Why SSE fits this workflow
 - Single upload request from frontend to backend
 - Server pushes update progressively
 - Fewer client round trips
@@ -69,7 +69,7 @@ sequenceDiagram
     Frontend-->>User: Show completed results
 ```
 
-## Implementation
+## Reactive SSE Implementation
 ### Backend
 On backend we used Quarkus reactive programming model to implement. The main components were:
 1. **REST endpoint** - A POST endpoint accepts the uploaded records as JSON and starts the validation process.
@@ -78,7 +78,7 @@ On backend we used Quarkus reactive programming model to implement. The main com
 3. **Server-Sent Events (SSE)** - The endpoint produces a continuous event stream using Server-Sent Events (SSE).
    As each record finishes processing, the backend pushes the result directly to the frontend in real time.
 
-```Java
+```java
     @POST
     @Path("/validate-customers")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -133,6 +133,46 @@ This is how UI looks like when processing is in progress:
 
 <hr />
 
+## Production considerations
+
+### Limiting Parallel API Calls
+Although processing records in parallel can speed up the workflow, it can also overwhelm the external API. To mitigate
+this, we can use a concurrency limiter to control the number of simultaneous API calls.
+```java
+return Multi.createFrom()
+                .iterable(incomingData)
+                .onItem()
+                .transformToUni(DataValidateController::process)
+                .merge(20); // Adjust the concurrency level as needed (e.g., 20 concurrent processing)
+```
+
+### Reverse Proxy and Buffering Issues
+When deploying SSE behind reverse proxies such as Nginx or CloudFront, buffering can prevent events from reaching the client immediately.
+
+For SSE to work correctly, buffering must be disabled so events are flushed progressively instead of being accumulated.
+
+### Handling Client Disconnects
+One important edge case is when the user closes the browser tab or navigates away while processing is still running.
+
+Since SSE connections are long-lived HTTP streams, the backend should detect connection termination and stop unnecessary processing to avoid wasting resources.
+```java
+.onCancellation().invoke(() -> {
+                    cancelled.set(true);
+                    System.out.println("Client disconnected. Stopping batch processing.");
+                });
+```
+This stops scheduling new work once the SSE connection closes. However, cancellation of already running API calls
+depends on whether the underlying HTTP client supports reactive cancellation propagation.
+
+<hr />
+
 The implementation itself was fairly small. The more interesting part was to evaluate different approaches and choose
 the one that best fits the workflow. SSE provided a simple and effective way to stream results back to users in real
 time without adding unnecessary complexity.
+
+<hr />
+
+## References
+- github repo with sample code:
+
+https://github.com/sats17/quarkus-sse-batch-processing
