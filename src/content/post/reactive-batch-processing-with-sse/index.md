@@ -2,7 +2,7 @@
 title: "Reactive Batch Processing with Server-Sent Events (SSE)"
 description: "This post explains how we used quarkus reactive programming model to implement a batch processing system that streams results to clients using Server-Sent Events (SSE)."
 publishDate: "24 May 2026"
-updatedDate: "25 May 2026"
+updatedDate: "02 June 2026"
 ---
 <hr />
 
@@ -109,17 +109,28 @@ On backend we used Quarkus reactive programming model to implement. The main com
 
 ### Frontend
 On the frontend we used flutter to consume the SSE stream. The main steps were:
-1. **Initiate SSE connection** - When the user uploads the CSV, we send a POST request to the backend and establish an SSE connection to receive updates.
+1. **Initiate SSE connection** - When the user uploads the CSV, we send a POST request to the backend and establish an SSE connection to receive updates. We have used flutter_client_sse package to handle SSE connections in flutter.
 2. **Listen for incoming events** - We listen for incoming SSE events and update the UI in real time as results arrive.
 ```dart
-  response.stream
-          .transform(utf8.decoder)
-          .transform(const LineSplitter())
-          .listen((String line) {
-              setState(() {
-                // Update progress UI
-              });
-          });
+  String url = "http://127.0.0.1:8080/api/validate-customers";
+  SSEClient.subscribeToSSE(
+    method: SSERequestType.POST,
+    url: url,
+    header: {
+      "Accept": "text/event-stream",
+      "Content-Type": "application/json"
+    },
+    body: {'data': payload},
+  ).listen((event) {
+      // Process and update UI with the received event data
+    },
+    onError: (error) {
+      print("SSE Error: $error");
+    },
+    onDone: () {
+      print("SSE stream closed");
+    },
+  );
 ```
 <div class="note-text">
   The frontend listens to the SSE stream and updates the UI as each record is processed. This provides a responsive user experience without needing to wait for the entire batch to complete.
@@ -139,11 +150,11 @@ This is how UI looks like when processing is in progress:
 Although processing records in parallel can speed up the workflow, it can also overwhelm the external API. To mitigate
 this, we can use a concurrency limiter to control the number of simultaneous API calls.
 ```java
-return Multi.createFrom()
-                .iterable(incomingData)
-                .onItem()
-                .transformToUni(DataValidateController::process)
-                .merge(20); // Adjust the concurrency level as needed (e.g., 20 concurrent processing)
+  return Multi.createFrom()
+                  .iterable(incomingData)
+                  .onItem()
+                  .transformToUni(DataValidateController::process)
+                  .merge(20); // Adjust the concurrency level as needed (e.g., 20 concurrent processing)
 ```
 
 ### Reverse Proxy and Buffering Issues
