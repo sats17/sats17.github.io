@@ -3,6 +3,8 @@ title: "Reactive Batch Processing with Server-Sent Events (SSE)"
 description: "This post explains how we used quarkus reactive programming model to implement a batch processing system that streams results to clients using Server-Sent Events (SSE)."
 publishDate: "24 May 2026"
 updatedDate: "02 June 2026"
+
+ogImage: "/images/reactive-batch-processing-with-sse.png"
 ---
 <hr />
 
