@@ -24,6 +24,10 @@ At first, the behavior seems straightforward.
 
 But with two producers waiting at the same time, something interesting happens: the thread that continues after notify() is not necessarily the thread that started waiting first.
 
-That behavior is a good starting point for understanding what wait() and notify() actually guarantee—and what they don't.
-<hr />
+Let's see a simple example of blocking queue methods.
+I created a custom blocking queue with circular array managed by putIndex and takeIndex.
+
+``java
+
+``
 
